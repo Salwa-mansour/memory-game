@@ -1,16 +1,23 @@
 import { useState } from "react";
-import { initialCats ,CatsContainer,ShuffleCats } from "./componunts/cats";
+// import { Header } from "./componunts/Header";
+import {Heading} from "./componunts/Heading";
+import { LevelModal } from "./componunts/Modals";
+import { initialCats ,CatsContainer } from "./componunts/cats";
 import './styles/App.css'
 
 const ImageGame = () => {
- const [cats,setCats]=useState([])
+ const [cats,setCats]=useState([]);
+ const [level,setLevel]=useState('easy');
+ const [score,setScore]=useState(0);
+ const [highestScore,setHighestScore]=useState(0)
 
-   initialCats(setCats)
+   initialCats(setCats,level)
 
    return( 
       <div>
-         <ShuffleCats cats={cats} setCats={setCats} />
-         <CatsContainer cats={cats} />
+         <CatsContainer cats={cats} setCats={setCats} score={score} setScore={setScore} highestScore={highestScore} setHighestScore={setHighestScore} />
+         <Heading score={score} highestScore={highestScore} />
+         <LevelModal setLevel={setLevel} />
       </div>
    )
 

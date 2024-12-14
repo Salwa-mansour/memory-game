@@ -15,12 +15,12 @@ const getCat = (catNumber) => {
 
     return img;
 };
-const initialCats = (setCats) => {
+const initialCats = (setCats,level) => {
    
     useEffect(
         ()=>{
             const LIMIT=15;
-            const CATCOUTN = 6;
+            const CATCOUTN = level === 'easy'? 6 : 12;
             let counter = 0;
             const newCats = []
             const catNumbers = []
@@ -41,16 +41,44 @@ const initialCats = (setCats) => {
             }
             setCats(newCats)
         },
-        []
+        [level]
     );
   
 }
-const CatsContainer = ({cats}) => {
+function checkWin(e,cats,setCats,score,highestScore,setScore,setHighestScore){
+    const id = e.target.dataset.id ;
+    const cat = cats.find(cat=>cat.id === id )
+    if(cat.clicked){
+        console.log('you lose')
+        setScore(0)
+    }else{
+        updateClickedItem(e,cats,setCats);
+        upgradeScore(score,highestScore,setScore,setHighestScore)
+    }
+    if(cats.every((cat=>cat.clicked))){
+        console.log('you win')
+        upgradeScore(score,highestScore,setScore,setHighestScore)
+        setScore(0)
+    }
+   shuffleCats(cats,setCats)
+}
+function updateClickedItem(e,cats,setCats){
+   
+    const newCats =cats.map(cat=>{
+        if(cat.id === e.target.dataset.id){
+            cat.clicked= true;
+        }
+        return cat;
+    });
+    setCats(newCats)
+    console.log(cats)
+}
+const CatsContainer = ({cats,setCats,score,highestScore,setScore,setHighestScore}) => {
     return ( 
         <ul>
            
            {cats.map(cat=>{
-        return(<li key={cat.id} >
+        return(<li key={cat.id} data-id={cat.id} onClick={(e)=>checkWin(e,cats,setCats,score,highestScore,setScore,setHighestScore)} >
                 <AdvancedImage cldImg={cat.catImg}/>
             </li>)
            })}
@@ -58,26 +86,31 @@ const CatsContainer = ({cats}) => {
         </ul>
      );
 }
- const ShuffleCats = ({cats,setCats}) => {
 
-   function shuffleCats(cats,setCats){
-     const availableCards = [...cats];
-     const shuffledCats = [];
-     while(availableCards.length){
-        const index = Math.floor(Math.random()* availableCards.length);
-        const newCard = availableCards[index];
-        newCard.id = crypto.randomUUID();//override old id
-        shuffledCats.push(newCard);
-        availableCards.splice(index,1)
+function upgradeScore(score,highestScore,setScore,setHighestScore){
+ 
+       setScore(score +1);
+       if(score >highestScore){
+        setHighestScore(score)
+       }
+    
+}
 
-     }
-     setCats(shuffledCats)
-   }
-   return(
-    <button onClick={()=>shuffleCats(cats,setCats)} >shuffle</button>
-   )
- }
+function shuffleCats(cats,setCats){
+    const availableCards = [...cats];
+    const shuffledCats = [];
+    while(availableCards.length){
+    const index = Math.floor(Math.random()* availableCards.length);
+    const newCard = availableCards[index];
+    // newCard.id = crypto.randomUUID();//override old id
+    shuffledCats.push(newCard);
+    availableCards.splice(index,1)
+
+    }
+    setCats(shuffledCats)
+}
+
   
 
 
-export {initialCats,CatsContainer,ShuffleCats};
+export {initialCats,CatsContainer};

@@ -4,7 +4,13 @@
   padding: 2rem;
   text-align: center;
 }
-
+body{
+  background-color: black;
+  background-image: linear-gradient(to right,  hsla(0, 1%, 10%, 0.8), hsla(0, 1%, 10%, 0.8)),
+  url(https://res.cloudinary.com/du6d1qifw/image/upload/f_auto/q_auto/c_auto,g_auto,w_1800/v1734014693/cats/SARAMOM-1180_wlsb1o.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -45,4 +51,34 @@ ul{
   flex-wrap: wrap;
   max-width: 700px;
   margin: auto;
+  list-style: none;
+  gap: .5rem;
+}
+ul li{
+ position: relative;
+  width: 180px;
+  border-radius: 5%;
+  transition: transform .1s ease;
+  cursor: pointer;
+}
+ul li::after{
+  position: absolute;
+  content: " ";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000000;
+  opacity: 0;
+  z-index: 10;
+}
+ul img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
+}
+ul li:hover{
+  transform: scale(1.02);
 }
