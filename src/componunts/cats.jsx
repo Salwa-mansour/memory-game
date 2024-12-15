@@ -45,21 +45,25 @@ const initialCats = (setCats,level) => {
     );
   
 }
-function checkWin(e,cats,setCats,score,highestScore,setScore,setHighestScore){
+function checkWin(e,cats,setCats,score,highestScore,result,setScore,setHighestScore,setStartGame,setResult){
+  
     const id = e.target.dataset.id ;
     const cat = cats.find(cat=>cat.id === id )
     if(cat.clicked){
-        console.log('you lose')
-        setScore(0)
+        setResult('lose');
+        setStartGame(false); 
+        console.log(result)
+      
     }else{
         updateClickedItem(e,cats,setCats);
-        upgradeScore(score,highestScore,setScore,setHighestScore)
     }
     if(cats.every((cat=>cat.clicked))){
-        console.log('you win')
-        upgradeScore(score,highestScore,setScore,setHighestScore)
-        setScore(0)
+        setResult('win');
+        setStartGame(false)
+      
     }
+    upgradeScore(score,highestScore,result,setScore,setHighestScore)
+  
    shuffleCats(cats,setCats)
 }
 function updateClickedItem(e,cats,setCats){
@@ -71,14 +75,14 @@ function updateClickedItem(e,cats,setCats){
         return cat;
     });
     setCats(newCats)
-    console.log(cats)
+   
 }
-const CatsContainer = ({cats,setCats,score,highestScore,setScore,setHighestScore}) => {
+const CatsContainer = ({cats,setCats,score,highestScore,result,setScore,setHighestScore,setStartGame,setResult}) => {
     return ( 
         <ul>
-           
+        
            {cats.map(cat=>{
-        return(<li key={cat.id} data-id={cat.id} onClick={(e)=>checkWin(e,cats,setCats,score,highestScore,setScore,setHighestScore)} >
+        return(<li key={cat.id} data-id={cat.id} onClick={(e)=>checkWin(e,cats,setCats,score,result,highestScore,setScore,setHighestScore,setStartGame,setResult)} >
                 <AdvancedImage cldImg={cat.catImg}/>
             </li>)
            })}
@@ -87,13 +91,15 @@ const CatsContainer = ({cats,setCats,score,highestScore,setScore,setHighestScore
      );
 }
 
-function upgradeScore(score,highestScore,setScore,setHighestScore){
- 
+function upgradeScore(score,highestScore,result,setScore,setHighestScore){
        setScore(score +1);
-       if(score >highestScore){
-        setHighestScore(score)
+       console.log(result)
+       if(result.length > 0){
+            if(score >highestScore){
+            setHighestScore(score);
+            }
        }
-    
+      
 }
 
 function shuffleCats(cats,setCats){
@@ -110,7 +116,12 @@ function shuffleCats(cats,setCats){
     setCats(shuffledCats)
 }
 
-  
+function resetGame(setScore,setResult,setStartGame,setLevel,newLevel){
+    setScore(0);
+    setResult('');
+    setStartGame(true);
+    setLevel(newLevel)
+}
 
 
-export {initialCats,CatsContainer};
+export {initialCats,CatsContainer,resetGame};
