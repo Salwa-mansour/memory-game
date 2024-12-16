@@ -13,21 +13,25 @@ const ImageGame = () => {
  const [result,setResult]=useState('');//win or lose
  const [startGame,setStartGame]=useState(false);
 
-   initialCats(setCats,level)
-
+   initialCats(setCats,level,startGame)
+   if(result.length > 0){
+      if(score >highestScore){
+      setHighestScore(score);
+      }
+ }
    return( 
       <div>
-       
+          <Heading score={score} highestScore={highestScore} result={result} setHighestScore={setHighestScore} />
+
          <CatsContainer cats={cats} setCats={setCats} score={score} setScore={setScore} result={result}
           highestScore={highestScore} setHighestScore={setHighestScore} setResult={setResult} setStartGame={setStartGame} />
 
-         <Heading score={score} highestScore={highestScore} />
-
+      
          <LevelModal setLevel={setLevel} setStartGame={setStartGame} />
 
        {  
         <MessageModal score={score} highestScore={highestScore} result={result} startGame={startGame}
-         setStartGame={setStartGame} setResult={setResult} setScore={setScore} setLevel={setLevel} />
+         setStartGame={setStartGame} setResult={setResult} setScore={setScore} level={level} setLevel={setLevel} />
         }
   </div>
    )

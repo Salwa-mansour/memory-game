@@ -1,4 +1,5 @@
 const Heading = ({score,highestScore}) => {
+   
     return(
         <header>
            <h1>Memory Game</h1>
