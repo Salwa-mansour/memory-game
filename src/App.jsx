@@ -12,6 +12,7 @@ const ImageGame = () => {
  const [highestScore,setHighestScore]=useState(0);
  const [result,setResult]=useState('');//win or lose
  const [startGame,setStartGame]=useState(false);
+ const [isShuffling,setIsShuffling]=useState(false);
 
    initialCats(setCats,level,startGame)
    if(result.length > 0){
@@ -23,15 +24,15 @@ const ImageGame = () => {
       <div>
           <Heading score={score} highestScore={highestScore} result={result} setHighestScore={setHighestScore} />
 
-         <CatsContainer cats={cats} setCats={setCats} score={score} setScore={setScore} result={result}
-          highestScore={highestScore} setHighestScore={setHighestScore} setResult={setResult} setStartGame={setStartGame} />
+         <CatsContainer cats={cats} setCats={setCats} score={score} setScore={setScore} result={result} highestScore={highestScore}
+           setHighestScore={setHighestScore} setResult={setResult} setStartGame={setStartGame} isShuffling={isShuffling} setIsShuffling={setIsShuffling} />
 
       
          <LevelModal setLevel={setLevel} setStartGame={setStartGame} />
 
        {  
-        <MessageModal score={score} highestScore={highestScore} result={result} startGame={startGame}
-         setStartGame={setStartGame} setResult={setResult} setScore={setScore} level={level} setLevel={setLevel} />
+        <MessageModal score={score} highestScore={highestScore} result={result} startGame={startGame} setStartGame={setStartGame}
+          setResult={setResult} setScore={setScore} level={level} setLevel={setLevel} setIsShuffling={setIsShuffling} />
         }
   </div>
    )

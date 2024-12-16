@@ -81,6 +81,25 @@ ul li::after{
   font-weight: 400;
   font-style: normal;
   font-size: 3rem;
+ 
+}
+li.hide-show{
+  pointer-events: none;
+}
+li.hide-show:after{
+  animation: hideShow 1s ease ;
+}
+@keyframes hideShow {
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+      opacity: 0;
+  }
+  
 }
 ul img{
   width: 100%;

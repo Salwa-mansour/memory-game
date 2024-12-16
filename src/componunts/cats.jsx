@@ -45,7 +45,7 @@ const initialCats = (setCats,level,startGame) => {
     );
   
 }
-function checkWin(e,cats,setCats,score,highestScore,result,setScore,setHighestScore,setStartGame,setResult){
+function checkWin(e,cats,setCats,score,highestScore,result,setScore,setHighestScore,setStartGame,setResult,setIsShuffling){
  
     const id = e.target.dataset.id ;
     const cat = cats.find(cat=>cat.id === id )
@@ -63,7 +63,7 @@ function checkWin(e,cats,setCats,score,highestScore,result,setScore,setHighestSc
       
     }
  
-   shuffleCats(cats,setCats)
+   shuffleCats(cats,setCats,setIsShuffling)
 }
 
 function updateClickedItem(e,cats,setCats){
@@ -77,12 +77,12 @@ function updateClickedItem(e,cats,setCats){
     setCats(newCats)
    
 }
-const CatsContainer = ({cats,setCats,score,highestScore,result,setScore,setHighestScore,setStartGame,setResult}) => {
+const CatsContainer = ({cats,setCats,score,highestScore,result,setScore,setHighestScore,setStartGame,setResult,isShuffling,setIsShuffling}) => {
     return ( 
         <ul>
         
            {cats.map(cat=>{
-        return(<li key={cat.id} data-id={cat.id} onClick={(e)=>checkWin(e,cats,setCats,score,highestScore,result,setScore,setHighestScore,setStartGame,setResult)} >
+        return(<li className={isShuffling ? 'hide-show':''} key={cat.id} data-id={cat.id} onClick={(e)=>checkWin(e,cats,setCats,score,highestScore,result,setScore,setHighestScore,setStartGame,setResult,setIsShuffling)} >
                 <AdvancedImage cldImg={cat.catImg}/>
             </li>)
            })}
@@ -93,7 +93,7 @@ const CatsContainer = ({cats,setCats,score,highestScore,result,setScore,setHighe
 
 
 
-function shuffleCats(cats,setCats){
+function shuffleCats(cats,setCats,setIsShuffling){
     const availableCards = [...cats];
     const shuffledCats = [];
     while(availableCards.length){
@@ -104,12 +104,23 @@ function shuffleCats(cats,setCats){
     availableCards.splice(index,1)
 
     }
+    // useEffect(
+    //     ()=>{
+    //         const catShuffle = setTimeout(() => {
+    //             setIsShuffling(true);
+    //         }, 1000);
+    //     },[])
+    setIsShuffling(true)
+    document.querySelector('li').addEventListener('animationend',()=>{
+    setIsShuffling(false)
+    })
     setCats(shuffledCats)
 }
 
-function resetGame(setScore,setResult,setStartGame,currentLevel,setLevel,newLevel){
+function resetGame(setScore,setResult,setStartGame,currentLevel,setLevel,newLevel,setIsShuffling){
     setScore(0);
     setResult('');
+    setIsShuffling(false);
     setStartGame(true);
     setLevel(newLevel || currentLevel)
 }

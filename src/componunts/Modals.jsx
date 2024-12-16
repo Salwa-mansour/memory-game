@@ -25,7 +25,7 @@ const LevelModal = ({setLevel,setStartGame}) => {
         </dialog>
      );
 }
-const MessageModal =({score,highestScore,result,startGame,setStartGame,setResult,setScore,level,setLevel})=>{
+const MessageModal =({score,highestScore,result,startGame,setStartGame,setResult,setScore,level,setLevel,setIsShuffling})=>{
     const imgFolder="https://res.cloudinary.com/du6d1qifw/image/upload/f_auto/q_auto/c_auto,g_auto,w_150/v1734204009/cats/";
     let catImg ="";
     let message =""
@@ -55,7 +55,7 @@ const MessageModal =({score,highestScore,result,startGame,setStartGame,setResult
                     <p className="highest-score">highest score{highestScore}</p>
                 </div>
                 {/* reset game varibles */}
-                <form method="dialog" onSubmit={(e)=>resetGame(setScore,setResult,setStartGame,level,setLevel,e.target.level.value)} >
+                <form method="dialog" onSubmit={(e)=>resetGame(setScore,setResult,setStartGame,level,setLevel,e.target.level.value,setIsShuffling)} >
                     <fieldset>
                         <legend>select defficulty level</legend>
                         <input type="radio" name="level" value="easy" id="easy-level" />
