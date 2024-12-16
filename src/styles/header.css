@@ -1,0 +1,25 @@
+header *{
+ 
+   
+}
+header {
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 90vw;
+}
+header h1{
+    flex: 100%;
+    text-align: center;
+
+}
+header .score-container{
+    width: 50%;
+    text-align: start;
+    padding-inline-start:4rem ;
+}
+.note{
+    font-size: .8rem;
+}

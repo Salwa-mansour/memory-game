@@ -18,6 +18,8 @@ const LevelModal = ({setLevel,setStartGame}) => {
                 <legend>select defficulty level</legend>
                 <input type="radio" name="level" value="easy" id="easy-level" onChange={levelValue} />
                 <label htmlFor="easy-level">easy</label>
+                <input type="radio" name="level" value="middle" id="middle-level" onChange={levelValue} />
+                <label htmlFor="middle-level">middle</label>
                 <input type="radio" name="level" value="hard" id="hard-level" onChange={levelValue}/>
                 <label htmlFor="hard-level">hard</label>
             </fieldset>
@@ -60,6 +62,8 @@ const MessageModal =({score,highestScore,result,startGame,setStartGame,setResult
                         <legend>select defficulty level</legend>
                         <input type="radio" name="level" value="easy" id="easy-level" />
                         <label htmlFor="easy-level">easy</label>
+                        <input type="radio" name="level" value="middle" id="middle-level" />
+                        <label htmlFor="middle-level">middle</label>
                         <input type="radio" name="level" value="hard" id="hard-level"/>
                         <label htmlFor="hard-level">hard</label>
                     </fieldset>

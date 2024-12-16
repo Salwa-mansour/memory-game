@@ -16,14 +16,24 @@ const getCat = (catNumber) => {
     return img;
 };
 const initialCats = (setCats,level,startGame) => {
-   
+   function getCatCount(){
+    if(level === 'easy'){
+        return 5;
+         }else if(level ==='middle'){
+            return 10;
+         }else{
+            return 15;
+         }
+    
+   }
     useEffect(
         ()=>{
-            const LIMIT=15;
-            const CATCOUTN = level === 'easy'? 6 : 12;
+            const LIMIT=17;
             let counter = 0;
             const newCats = []
             const catNumbers = []
+            const CATCOUTN = getCatCount();
+               
 
             while(counter < CATCOUTN){ 
               const catNumber = Math.floor(Math.random() * LIMIT);
@@ -99,17 +109,12 @@ function shuffleCats(cats,setCats,setIsShuffling){
     while(availableCards.length){
     const index = Math.floor(Math.random()* availableCards.length);
     const newCard = availableCards[index];
-    // newCard.id = crypto.randomUUID();//override old id
+
     shuffledCats.push(newCard);
     availableCards.splice(index,1)
 
     }
-    // useEffect(
-    //     ()=>{
-    //         const catShuffle = setTimeout(() => {
-    //             setIsShuffling(true);
-    //         }, 1000);
-    //     },[])
+  
     setIsShuffling(true)
     document.querySelector('li').addEventListener('animationend',()=>{
     setIsShuffling(false)

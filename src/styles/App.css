@@ -51,8 +51,11 @@ body{
 }
 ul{
   display: flex;
+ padding: 0;
   flex-wrap: wrap;
-  max-width: 700px;
+  justify-content: center;
+  max-width:90%;
+  place-items: center;
   margin: auto;
   list-style: none;
   gap: .5rem;
