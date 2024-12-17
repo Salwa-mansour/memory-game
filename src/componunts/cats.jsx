@@ -28,7 +28,7 @@ const initialCats = (setCats,level,startGame) => {
    }
     useEffect(
         ()=>{
-            const LIMIT=17;
+            const LIMIT=20;// the number of images in source folder
             let counter = 0;
             const newCats = []
             const catNumbers = []
